@@ -1,0 +1,21 @@
+{
+    "name": "Lap2",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "lilas",
+    "contributors": [],
+    "dependencies": {
+        "express": "^4.19.2",
+        "socket.io": "^4.7.5"
+    },
+    "scripts": {
+        "start": "node main.js"
+    }
+
+}

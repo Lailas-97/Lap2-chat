@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Socket.IO Chat</title>
+    <style>
+        /* Add some basic styling */
+        body { margin: 0; padding-bottom: 3rem; font-family: Arial, sans-serif; }
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages > li { padding: 8px; margin-bottom: 2px; background-color: #f2f2f2; }
+        #form { display: flex; position: fixed; bottom: 0; width: 100%; background: #eee; padding: 10px; }
+        #input { flex-grow: 1; border: none; padding: 10px; }
+        #input:focus { outline: none; }
+        button { padding: 10px; background-color: #333; color: #fff; border: none; }
+    </style>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        // Handle form submission to send chat message
+        const form = document.getElementById('form');
+        const input = document.getElementById('input');
+        const messages = document.getElementById('messages');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (input.value) {
+                socket.emit('chat message', input.value); // Emit the message to the server
+                input.value = ''; // Clear the input field
+            }
+        });
+
+        // Listen for chat messages and display them
+        socket.on('chat message', function(msg) {
+            const item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight); // Scroll to the bottom
+        });
+    </script>
+</body>
+</html>
